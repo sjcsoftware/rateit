@@ -4,7 +4,9 @@
 
 **Rate your music. Own your taste.**
 
-RateIt is a macOS desktop app for rating and cataloguing every album you listen to. Search any album from Spotify, rate it track-by-track and across five quality dimensions, and build a personal library that reflects your actual taste — no account, no cloud, no subscription. Everything lives locally on your Mac.
+RateIt is a macOS desktop app for rating and cataloguing every album you listen to. 
+
+Search any album from Spotify, rate it track-by-track and across five quality criteria (or your own!), and build a personal library that reflects your actual taste — no cloud, no subscription. Everything lives locally on your Mac.
 
 ![Main](screenshots/Main.png)
 ![Search](screenshots/Search.png)
@@ -13,7 +15,7 @@ RateIt is a macOS desktop app for rating and cataloguing every album you listen 
 
 ## Features
 
-- **Search & Rate** — Find any album via the Spotify API and rate each track (1–5 ★) plus five quality dimensions: Flow, Production, Lyricism, Originality, Replay. The overall score (out of 10) calculates automatically.
+- **Search & Rate** — Find any album via the Spotify API and rate each track (1–5 ★) plus five quality criteria: Flow, Production, Lyricism, Originality, Replay. The overall score (out of 10) calculates automatically.
 
 ![rating](screenshots/Rating.png)
 
@@ -34,7 +36,7 @@ RateIt is a macOS desktop app for rating and cataloguing every album you listen 
 
 ![prof](screenshots/profile.png)
 
-- **Surprise Me** — One-click random album picker weighted toward your top genres.
+- **Surprise Me** — One-click random album picker in the main screen, weighted toward your top genres.
 
 - **Export** — Download your library as JSON, CSV, or a self-contained styled HTML page.
 
@@ -46,7 +48,7 @@ RateIt is a macOS desktop app for rating and cataloguing every album you listen 
 
 - **macOS** (Apple Silicon — arm64)
 
-- A free [Spotify Developer account](https://developer.spotify.com/dashboard) to search albums (no Spotify subscription required, free tier works)
+- A [Spotify Developer account](https://developer.spotify.com/dashboard) to search albums (no Spotify subscription required, free tier works)
 
 - Node.js 18+ and npm (only if building from source)
 
@@ -56,7 +58,7 @@ RateIt is a macOS desktop app for rating and cataloguing every album you listen 
 
 ### Download (recommended)
 
-Download the latest `RateIt-1.0.0-arm64.dmg` from the [**Releases**](../../releases) page, open it, and drag RateIt to your Applications folder.
+Download the latest `RateIt-1.0.0-arm64.dmg` from the [**Releases**](../../releases) page, open it, and drag `RateIt` to your Applications folder.
 
 ### Build from source
 
@@ -75,14 +77,19 @@ npm run build     # produces dist/RateIt-1.0.0-arm64.dmg
 
 ![signup](screenshots/Sign_up.png)
 
-RateIt uses the Spotify API only to search albums and fetch track lists. Your ratings and library data never touch Spotify's servers.
+
+The reason why RateIt has a sign up page is, each person need to add their own Spotify API credentials.
+
+**RateIt does not connect your information to any type of server nor cloud in any way. Everything is managed locally (feel free to check the source code!)**
+
+RateIt uses the Spotify API only to search albums and fetch track lists. Also, your ratings and library data never touch Spotify's servers.
 
 1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and sign in with any Spotify account.
 2. Click **Create App**. Name and description can be anything.
-3. Set the Redirect URI to `http://localhost`, check **Web API**, accept the Terms, and save.
+3. Set the Redirect URI to `https://localhost` (doesn't matter, put anything), check **Web API**, accept the Terms, and save.
 4. From your app's settings page, copy the **Client ID** and click **View client secret** to reveal the **Client Secret**.
 
-On first launch, RateIt will prompt you to create a local account and paste both values. They are stored in your local database — never transmitted.
+On first launch, RateIt will prompt you to create a local account and paste both values. They are stored in your local database — again, never transmitted.
 
 ---
 
