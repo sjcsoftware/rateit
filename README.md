@@ -1,34 +1,53 @@
 # RateIt
 
+![Thumbnail](screenshots/thumbnail.png)
+
 **Rate your music. Own your taste.**
 
 RateIt is a macOS desktop app for rating and cataloguing every album you listen to. Search any album from Spotify, rate it track-by-track and across five quality dimensions, and build a personal library that reflects your actual taste — no account, no cloud, no subscription. Everything lives locally on your Mac.
 
-<#PLACEHOLDER_FOR_SS#>
-*Main search and rating view*
+![Main](screenshots/Main.png)
+![Search](screenshots/Search.png)
 
 ---
 
 ## Features
 
 - **Search & Rate** — Find any album via the Spotify API and rate each track (1–5 ★) plus five quality dimensions: Flow, Production, Lyricism, Originality, Replay. The overall score (out of 10) calculates automatically.
-- **Rated Albums** — Your full library with sort (score, date) and group (artist, genre) controls, a mini stats bar, and one-click export.
-- **Gallery** — A visual card grid of everything you've rated. Each card extracts the album's dominant colour and applies it as a theme. Click a card to expand it; click again to flip it and see the full score breakdown.
-- **Custom Criteria** — Rename or reweight the five scoring dimensions so the formula fits how you actually listen (jazz, classical, electronic — all different).
-- **Year in Review** — Annual Wrapped-style stats: albums per month, avg score, top genre, most active month, highest and lowest rated album.
-- **Surprise Me** — One-click random album picker weighted toward your top genres.
-- **Export** — Download your library as JSON, CSV, or a self-contained styled HTML page.
-- **Open in Spotify** — Deep-link any album straight into the Spotify app.
 
-<#PLACEHOLDER_FOR_SS#>
-*Gallery view with per-album colour theming*
+![rating](screenshots/Rating.png)
+
+- **Rated Albums** — Your full library with sort (score, date) and group (artist, genre) controls, a mini stats bar, and one-click export.
+
+![rated](screenshots/Rated_Albums.png)
+
+- **Gallery** — A visual card grid of everything you've rated. Each card extracts the album's dominant colour and applies it as a theme. Click a card to expand it; click again to flip it and see the full score breakdown.
+
+![Gallery](screenshots/Gallery.png)
+![Card](screenshots/Card.png)
+
+- **Custom Criteria** — Rename or reweight the five scoring dimensions so the formula fits how you actually listen (jazz, classical, electronic — all different).
+
+![cri](screenshots/custom_criteria.png)
+
+- **Year in Review** — Annual Wrapped-style stats: albums per month, avg score, top genre, most active month, highest and lowest rated album.
+
+![prof](screenshots/profile.png)
+
+- **Surprise Me** — One-click random album picker weighted toward your top genres.
+
+- **Export** — Download your library as JSON, CSV, or a self-contained styled HTML page.
+
+- **Open in Spotify** — Deep-link any album straight into the Spotify app.
 
 ---
 
 ## Requirements
 
 - **macOS** (Apple Silicon — arm64)
+
 - A free [Spotify Developer account](https://developer.spotify.com/dashboard) to search albums (no Spotify subscription required, free tier works)
+
 - Node.js 18+ and npm (only if building from source)
 
 ---
@@ -42,7 +61,7 @@ Download the latest `RateIt-1.0.0-arm64.dmg` from the [**Releases**](../../relea
 ### Build from source
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/rateit.git
+git clone https://github.com/sjcsoftware/rateit.git
 cd rateit
 npm install
 npm run rebuild   # recompiles SQLite for Electron's Node runtime
@@ -54,6 +73,8 @@ npm run build     # produces dist/RateIt-1.0.0-arm64.dmg
 
 ## Setup: Spotify API credentials
 
+![signup](screenshots/Sign_up.png)
+
 RateIt uses the Spotify API only to search albums and fetch track lists. Your ratings and library data never touch Spotify's servers.
 
 1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and sign in with any Spotify account.
@@ -62,9 +83,6 @@ RateIt uses the Spotify API only to search albums and fetch track lists. Your ra
 4. From your app's settings page, copy the **Client ID** and click **View client secret** to reveal the **Client Secret**.
 
 On first launch, RateIt will prompt you to create a local account and paste both values. They are stored in your local database — never transmitted.
-
-<#PLACEHOLDER_FOR_SS#>
-*First-launch account setup*
 
 ---
 
@@ -79,8 +97,6 @@ On first launch, RateIt will prompt you to create a local account and paste both
 5. Optionally write a one-line review.
 6. Hit **Save Rating**. Done.
 
-<#PLACEHOLDER_FOR_SS#>
-*Rating panel — tracks on the left, qualities on the right*
 
 ### Gallery
 
