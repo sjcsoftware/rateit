@@ -1,4 +1,4 @@
-# RateIt
+# RateIt - Your own local music rating app
 
 ![Thumbnail](screenshots/thumbnail.png)
 
