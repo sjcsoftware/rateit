@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Build output
+dist/
+out/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.dmg
+
+# Environment & secrets
+backend/.env
+*.env
+.env.local
+.env.*.local
+
+# User data (generated at runtime)
+backend/ratings.db
+backend/rateit_session.json
+backend/rateit_config.json
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Electron builder temp files
+dist/builder-debug.yml
+dist/latest-mac.yml
+dist/latest.yml
