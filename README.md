@@ -4,7 +4,7 @@
 
 **Rate your music. Own your taste.**
 
-RateIt is a macOS desktop app for rating and cataloguing every album you listen to.
+> RateIt is a MacOS desktop app for rating and cataloguing every album you listen to.
 
 Search any album from Spotify API, rate it track-by-track and across five quality criteria (or your own!), and build a personal library that reflects your actual taste — no cloud, no subscription. Everything lives locally on your Mac.
 
@@ -76,7 +76,7 @@ Search any album from Spotify API, rate it track-by-track and across five qualit
 
 ### Download (recommended)
 
-Download the latest RateIt DMG from the [**Releases**](../../releases) page (pick `arm64` for Apple Silicon Macs or `x86-64` for Intel Macs), open it, and drag `RateIt` to your Applications folder.
+Download the latest `RateIt` DMG from the [**Releases**](../../releases) page (pick `arm64` for Apple Silicon Macs or `x86-64` for Intel Macs), open it, and drag `RateIt` to your Applications folder.
 
 ### Build from source
 
