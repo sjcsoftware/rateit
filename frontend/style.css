@@ -1355,14 +1355,14 @@ body {
 
 #profile-view {
   max-width: 800px;
-  margin: 0 auto;
+  margin: auto;
   padding: 12px 0;
+  width: 100%;
 }
 
 .content:has(#profile-view) {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 /* ── Profile Hero Card ── */
@@ -1581,7 +1581,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: 0;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* ── Genre / Artist section cards ── */
@@ -1697,12 +1697,18 @@ body {
 .dist-bar-fill.tier-5 { background: linear-gradient(90deg, #f87171, #dc2626); }
 
 .dist-count {
-  width: 22px;
+  min-width: 68px;
   text-align: right;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-primary);
   flex-shrink: 0;
+}
+
+.dist-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* ── Profile Action Buttons ── */

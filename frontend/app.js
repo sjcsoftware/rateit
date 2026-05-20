@@ -803,9 +803,9 @@ class ProfileView {
       { key: '6-7',  label: '6–7',  cls: 'tier-4' },
       { key: 'below6', label: '< 6', cls: 'tier-5' },
     ];
-    const maxDist = Math.max(...distTiers.map(t => dist[t.key] || 0), 1);
+    const totalRated = stats.albumsRated || 1;
 
-    // ── Row 1: Genres | Distribution ──
+    // ── Row 1: Genres | Artists ──
     html += `<div class="profile-stats-grid">`;
 
     html += `<div class="genre-section stats-cell">`;
@@ -825,18 +825,6 @@ class ProfileView {
     }
     html += `</div>`;
 
-    html += `<div class="genre-section stats-cell">
-      <div class="genre-section-title">Rating Distribution</div>
-      ${distTiers.map(t => `
-        <div class="dist-row">
-          <span class="dist-label">${t.label}</span>
-          <div class="dist-bar-container"><div class="dist-bar-fill ${t.cls}" style="width:${Math.round((dist[t.key] || 0) / maxDist * 100)}%"></div></div>
-          <span class="dist-count">${dist[t.key] || 0}</span>
-        </div>
-      `).join('')}
-    </div>`;
-
-    // ── Row 2: Artists | Recently Rated ──
     html += `<div class="genre-section stats-cell">`;
     if (stats.topArtists?.length) {
       html += `<div class="genre-section-title">Top Artists</div>
@@ -851,6 +839,21 @@ class ProfileView {
       html += `<div class="genre-section-title">Top Artists</div><p style="color:var(--text-secondary);font-size:0.82rem;padding:8px 0">Rate more albums to see artists.</p>`;
     }
     html += `</div>`;
+
+    // ── Row 2: Distribution | Recently Rated ──
+    html += `<div class="genre-section stats-cell dist-section">
+      <div class="genre-section-title">Rating Distribution</div>
+      ${distTiers.map(t => {
+        const count = dist[t.key] || 0;
+        const pct = Math.round(count / totalRated * 100);
+        return `
+        <div class="dist-row">
+          <span class="dist-label">${t.label}</span>
+          <div class="dist-bar-container"><div class="dist-bar-fill ${t.cls}" style="width:${Math.round(count / totalRated * 100)}%"></div></div>
+          <span class="dist-count">${count} (${pct}%)</span>
+        </div>`;
+      }).join('')}
+    </div>`;
 
     html += `<div class="genre-section stats-cell">
       <div class="genre-section-title">Recently Rated</div>`;
