@@ -812,7 +812,12 @@ class ProfileView {
       { key: '8-9',  label: '8–9',  cls: 'tier-2' },
       { key: '7-8',  label: '7–8',  cls: 'tier-3' },
       { key: '6-7',  label: '6–7',  cls: 'tier-4' },
-      { key: 'below6', label: '< 6', cls: 'tier-5' },
+      { key: '5-6',  label: '5–6',  cls: 'tier-5' },
+      { key: '4-5',  label: '4–5',  cls: 'tier-6' },
+      { key: '3-4',  label: '3–4',  cls: 'tier-7' },
+      { key: '2-3',  label: '2–3',  cls: 'tier-8' },
+      { key: '1-2',  label: '1–2',  cls: 'tier-9' },
+      { key: '0-1',  label: '0–1',  cls: 'tier-10' },
     ];
     const totalRated = stats.albumsRated || 1;
 
