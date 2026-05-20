@@ -400,14 +400,13 @@ app.get('/api/stats', (req, res) => {
       .slice(0, 3)
       .map(a => ({ id: a.id, title: a.title, artist: a.artist, cover_url: a.cover_url, overall_score: a.overall_score }));
 
-    const ratingDistribution = { '9-10': 0, '8-9': 0, '7-8': 0, '6-7': 0, 'below6': 0 };
+    const ratingDistribution = {};
+    for (let i = 0; i < 10; i++) ratingDistribution[`${i}-${i + 1}`] = 0;
     scored.forEach(a => {
       const s = a.overall_score;
-      if (s >= 9) ratingDistribution['9-10']++;
-      else if (s >= 8) ratingDistribution['8-9']++;
-      else if (s >= 7) ratingDistribution['7-8']++;
-      else if (s >= 6) ratingDistribution['6-7']++;
-      else ratingDistribution['below6']++;
+      if (s == null || s < 0) return;
+      const bucket = Math.min(9, Math.floor(s));
+      ratingDistribution[`${bucket}-${bucket + 1}`]++;
     });
 
     const recentAlbums = db.prepare(

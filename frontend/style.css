@@ -1690,11 +1690,16 @@ body {
   transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dist-bar-fill.tier-1 { background: linear-gradient(90deg, #34d399, #059669); }
-.dist-bar-fill.tier-2 { background: linear-gradient(90deg, var(--accent), #7c3aed); }
-.dist-bar-fill.tier-3 { background: linear-gradient(90deg, #60a5fa, #2563eb); }
-.dist-bar-fill.tier-4 { background: linear-gradient(90deg, #fb923c, #ea580c); }
-.dist-bar-fill.tier-5 { background: linear-gradient(90deg, #f87171, #dc2626); }
+.dist-bar-fill.tier-1  { background: linear-gradient(90deg, #34d399, #059669); }
+.dist-bar-fill.tier-2  { background: linear-gradient(90deg, var(--accent), #7c3aed); }
+.dist-bar-fill.tier-3  { background: linear-gradient(90deg, #60a5fa, #2563eb); }
+.dist-bar-fill.tier-4  { background: linear-gradient(90deg, #fb923c, #ea580c); }
+.dist-bar-fill.tier-5  { background: linear-gradient(90deg, #f87171, #dc2626); }
+.dist-bar-fill.tier-6  { background: linear-gradient(90deg, #ef4444, #b91c1c); }
+.dist-bar-fill.tier-7  { background: linear-gradient(90deg, #dc2626, #991b1b); }
+.dist-bar-fill.tier-8  { background: linear-gradient(90deg, #b91c1c, #7f1d1d); }
+.dist-bar-fill.tier-9  { background: linear-gradient(90deg, #991b1b, #5a1010); }
+.dist-bar-fill.tier-10 { background: linear-gradient(90deg, #7f1d1d, #3f0a0a); }
 
 .dist-count {
   min-width: 68px;
