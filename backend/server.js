@@ -282,6 +282,36 @@ app.put('/api/auth/password', (req, res) => {
   res.json({ success: true });
 });
 
+app.put('/api/auth/spotify-credentials', async (req, res) => {
+  const { userId, newClientId, newClientSecret } = req.body;
+  if (!userId || !newClientId || !newClientSecret) {
+    return res.status(400).json({ error: 'All fields required' });
+  }
+
+  // Validate the credentials by requesting a Spotify token
+  try {
+    const credentials = Buffer.from(`${newClientId}:${newClientSecret}`).toString('base64');
+    await axios.post(
+      'https://accounts.spotify.com/api/token',
+      'grant_type=client_credentials',
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Basic ${credentials}`
+        }
+      }
+    );
+  } catch {
+    return res.status(401).json({ error: 'Invalid Spotify credentials — please check your Client ID and Secret' });
+  }
+
+  db.prepare('UPDATE users SET spotify_client_id = ?, spotify_client_secret = ? WHERE id = ?')
+    .run(newClientId, newClientSecret, userId);
+  // Invalidate cached token so the new credentials are used immediately
+  spotifyTokenCache.delete(userId);
+  res.json({ success: true });
+});
+
 app.put('/api/auth/profile-picture', (req, res) => {
   const { userId, imageData } = req.body;
   if (!userId || !imageData) return res.status(400).json({ error: 'userId and imageData required' });

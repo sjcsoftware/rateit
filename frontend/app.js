@@ -147,6 +147,17 @@ const API = {
     return data;
   },
 
+  async updateSpotifyCredentials(userId, newClientId, newClientSecret) {
+    const res = await fetch(`${API_BASE}/api/auth/spotify-credentials`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, newClientId, newClientSecret })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to update Spotify credentials');
+    return data;
+  },
+
   async updateProfilePicture(userId, imageData) {
     const res = await fetch(`${API_BASE}/api/auth/profile-picture`, {
       method: 'PUT',
@@ -986,6 +997,8 @@ class AccountDetailsView {
     try {
       const details = await API.getAccountDetails(window.currentUser.id);
       this._secret = details.spotifyClientSecret;
+      this._clientId = details.spotifyClientId;
+      this._secretRevealed = false;
       section.innerHTML = `
         <div class="details-section-title">Account Info</div>
         <div class="detail-row">
@@ -1002,9 +1015,26 @@ class AccountDetailsView {
           <span class="detail-value secret" id="secret-val">●●●●●●●●●●●●●●●●</span>
           <button class="detail-action-btn" id="reveal-secret-btn">Reveal</button>
         </div>
+        <div id="spotify-edit-form" style="display:none">
+          <div class="details-pw-fields" style="margin-top:12px">
+            <div class="form-group">
+              <label class="form-label">New Client ID</label>
+              <input type="text" class="form-input" id="new-client-id" placeholder="Spotify Client ID" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Client Secret</label>
+              <input type="password" class="form-input" id="new-client-secret" placeholder="Spotify Client Secret" autocomplete="off">
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="save-btn" id="save-spotify-btn">Save Credentials</button>
+            <button class="detail-action-btn" id="cancel-spotify-btn" style="padding:8px 16px">Cancel</button>
+          </div>
+        </div>
+        <button class="detail-action-btn" id="edit-spotify-btn" style="margin-top:12px">Edit Credentials</button>
       `;
       document.getElementById('copy-id-btn').addEventListener('click', () => {
-        navigator.clipboard.writeText(details.spotifyClientId)
+        navigator.clipboard.writeText(this._clientId)
           .then(() => showToast('Client ID copied!', 'success'))
           .catch(() => showToast('Failed to copy', 'error'));
       });
@@ -1015,9 +1045,37 @@ class AccountDetailsView {
         if (this._secretRevealed) { el.textContent = this._secret; el.classList.remove('secret'); btn.textContent = 'Hide'; }
         else { el.textContent = '●●●●●●●●●●●●●●●●'; el.classList.add('secret'); btn.textContent = 'Reveal'; }
       });
+      document.getElementById('edit-spotify-btn').addEventListener('click', () => {
+        document.getElementById('spotify-edit-form').style.display = '';
+        document.getElementById('edit-spotify-btn').style.display = 'none';
+        document.getElementById('new-client-id').focus();
+      });
+      document.getElementById('cancel-spotify-btn').addEventListener('click', () => {
+        document.getElementById('spotify-edit-form').style.display = 'none';
+        document.getElementById('edit-spotify-btn').style.display = '';
+        document.getElementById('new-client-id').value = '';
+        document.getElementById('new-client-secret').value = '';
+      });
+      document.getElementById('save-spotify-btn').addEventListener('click', () => this._saveSpotifyCredentials());
     } catch {
       section.innerHTML = `<div class="details-section-title">Account Info</div>
         <p style="color:var(--text-secondary);font-size:0.88rem">Failed to load account details.</p>`;
+    }
+  }
+
+  async _saveSpotifyCredentials() {
+    const newClientId = document.getElementById('new-client-id').value.trim();
+    const newClientSecret = document.getElementById('new-client-secret').value.trim();
+    if (!newClientId || !newClientSecret) { showToast('Please fill in both fields', 'error'); return; }
+    const btn = document.getElementById('save-spotify-btn');
+    btn.disabled = true; btn.textContent = 'Validating…';
+    try {
+      await API.updateSpotifyCredentials(window.currentUser.id, newClientId, newClientSecret);
+      showToast('Spotify credentials updated!', 'success');
+      await this._loadCredentials();
+    } catch (err) {
+      showToast(err.message || 'Failed to update credentials', 'error');
+      btn.disabled = false; btn.textContent = 'Save Credentials';
     }
   }
 
