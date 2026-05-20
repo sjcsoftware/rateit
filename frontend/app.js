@@ -286,7 +286,7 @@ class StarRating {
 
 // ── Rating Controller ─────────────────────────────────────────
 class RatingController {
-  constructor(album, initialTrackScores = {}, initialCriteriaScores = {}, initialReview = '', savedOverallScore = 0, onBack, onSaved) {
+  constructor(album, initialTrackScores = {}, initialCriteriaScores = {}, initialReview = '', savedOverallScore = 0, onBack, onSaved, albumCriteria = null, isFromLibrary = false) {
     this.album = album;
     this.trackScores = { ...initialTrackScores };
     this.criteriaScores = { ...initialCriteriaScores };
@@ -295,10 +295,16 @@ class RatingController {
     this.overallScore = savedOverallScore;
     this.onBack = onBack;
     this.onSaved = onSaved;
+    this.albumCriteria = albumCriteria || getActiveCriteria();
+    this.isFromLibrary = isFromLibrary;
+  }
+
+  _getNonTrackCriteria() {
+    return this.albumCriteria.filter(c => c.id !== 'tracks' && c.weight > 0);
   }
 
   _autoCalculate() {
-    const config = getActiveCriteria();
+    const config = this.albumCriteria;
     const tracksWeight = (config.find(c => c.id === 'tracks') || { weight: 50 }).weight;
     const criteriaConfig = config.filter(c => c.id !== 'tracks');
 
@@ -316,7 +322,7 @@ class RatingController {
 
   _allRated() {
     const allTracks = this.album.tracks.every(t => (this.trackScores[t.id] || 0) > 0);
-    const allCriteria = getNonTrackCriteria().every(c => (this.criteriaScores[c.id] || 0) > 0);
+    const allCriteria = this._getNonTrackCriteria().every(c => (this.criteriaScores[c.id] || 0) > 0);
     return allTracks && allCriteria;
   }
 
@@ -337,9 +343,11 @@ class RatingController {
   }
 
   mount(container, backLabel = '← Back to search') {
+    this._container = container;
+    this._backLabel = backLabel;
     const album = this.album;
     const year = album.release_date?.split('-')[0] || '';
-    const criteria = getNonTrackCriteria();
+    const criteria = this._getNonTrackCriteria();
 
     container.innerHTML = `
       <div class="rating-panel">
@@ -403,6 +411,7 @@ class RatingController {
               placeholder="Your quick take on this album…" maxlength="200">
 
             <button class="save-btn" id="save-btn">Save Rating</button>
+            ${this.isFromLibrary ? `<button class="refresh-criteria-btn" id="refresh-criteria-btn">↻ Refresh Criteria</button>` : ''}
           </div>
         </div>
       </div>
@@ -448,6 +457,16 @@ class RatingController {
     });
 
     document.getElementById('save-btn').addEventListener('click', () => this._save());
+
+    if (this.isFromLibrary) {
+      document.getElementById('refresh-criteria-btn').addEventListener('click', () => {
+        this.albumCriteria = [...getActiveCriteria()];
+        this.criteriaScores = {};
+        this.savedOverallScore = 0;
+        this.overallScore = 0;
+        this.mount(this._container, this._backLabel);
+      });
+    }
   }
 
   async _save() {
@@ -475,6 +494,7 @@ class RatingController {
       score_originality: this.criteriaScores.originality || null,
       score_replay: this.criteriaScores.replay || null,
       extra_criteria: Object.keys(extraCriteria).length ? extraCriteria : null,
+      criteria_snapshot: this.albumCriteria,
       genres: this.album.genres || [],
       release_year: this.album.release_year || null,
       tracks: this.album.tracks.map(t => ({
@@ -2190,6 +2210,15 @@ class App {
         } catch {}
       }
 
+      let albumCriteria = DEFAULT_CRITERIA;
+      if (savedAlbum.criteria_snapshot) {
+        try {
+          const parsed = typeof savedAlbum.criteria_snapshot === 'string'
+            ? JSON.parse(savedAlbum.criteria_snapshot) : savedAlbum.criteria_snapshot;
+          if (Array.isArray(parsed) && parsed.length) albumCriteria = parsed;
+        } catch {}
+      }
+
       const wrapper = document.createElement('div');
       wrapper.id = 'search-view';
       main.innerHTML = '';
@@ -2202,7 +2231,9 @@ class App {
         savedAlbum.one_line_review || '',
         savedAlbum.overall_score || 0,
         () => this._navigate('library'),
-        () => this._navigate('library')
+        () => this._navigate('library'),
+        albumCriteria,
+        true
       );
       ctrl.mount(wrapper, '← Back to rated albums');
     } catch {
