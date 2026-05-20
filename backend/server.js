@@ -121,6 +121,7 @@ const migrations = [
   `ALTER TABLE albums ADD COLUMN long_review TEXT`,
   `ALTER TABLE albums ADD COLUMN release_year INTEGER`,
   `ALTER TABLE albums ADD COLUMN extra_criteria TEXT`,
+  `ALTER TABLE albums ADD COLUMN criteria_snapshot TEXT`,
   `ALTER TABLE tracks ADD COLUMN notes TEXT`,
   `ALTER TABLE users ADD COLUMN custom_criteria TEXT`,
 ];
@@ -341,7 +342,7 @@ app.get('/api/criteria', (req, res) => {
 app.put('/api/criteria', (req, res) => {
   const { userId, criteria } = req.body;
   if (!userId || !criteria) return res.status(400).json({ error: 'userId and criteria required' });
-  if (!Array.isArray(criteria) || criteria.length !== 5) return res.status(400).json({ error: 'criteria must be array of 5' });
+  if (!Array.isArray(criteria) || criteria.length < 1) return res.status(400).json({ error: 'criteria must be a non-empty array' });
 
   try {
     db.prepare('UPDATE users SET custom_criteria = ? WHERE id = ?').run(JSON.stringify(criteria), userId);
@@ -856,25 +857,26 @@ app.post('/api/rate', (req, res) => {
   const {
     id, title, artist, cover_url, overall_score, one_line_review, tracks,
     score_flow, score_production, score_lyricism, score_originality, score_replay,
-    userId, genres, release_year, extra_criteria
+    userId, genres, release_year, extra_criteria, criteria_snapshot
   } = req.body;
 
   if (!id || !title || !artist) return res.status(400).json({ error: 'Missing required fields' });
 
   const genresJson = Array.isArray(genres) ? JSON.stringify(genres) : null;
   const extraJson = extra_criteria && typeof extra_criteria === 'object' ? JSON.stringify(extra_criteria) : null;
+  const snapshotJson = criteria_snapshot && Array.isArray(criteria_snapshot) ? JSON.stringify(criteria_snapshot) : null;
 
   try {
     db.prepare(
       `INSERT OR REPLACE INTO albums
         (id, title, artist, cover_url, overall_score, one_line_review,
          score_flow, score_production, score_lyricism, score_originality, score_replay,
-         user_id, genres, release_year, extra_criteria, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`
+         user_id, genres, release_year, extra_criteria, criteria_snapshot, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`
     ).run(
       id, title, artist, cover_url, overall_score, one_line_review,
       score_flow, score_production, score_lyricism, score_originality, score_replay,
-      userId || null, genresJson, release_year || null, extraJson
+      userId || null, genresJson, release_year || null, extraJson, snapshotJson
     );
 
     if (tracks && tracks.length > 0) {
