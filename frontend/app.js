@@ -1388,9 +1388,23 @@ class GalleryView {
       </div>
     `;
 
-    const criteria = getNonTrackCriteria();
+    let albumCriteria = DEFAULT_CRITERIA;
+    if (album.criteria_snapshot) {
+      try {
+        const parsed = typeof album.criteria_snapshot === 'string'
+          ? JSON.parse(album.criteria_snapshot) : album.criteria_snapshot;
+        if (Array.isArray(parsed) && parsed.length) albumCriteria = parsed;
+      } catch {}
+    }
+    const extraScores = (() => {
+      try { return album.extra_criteria
+        ? (typeof album.extra_criteria === 'string' ? JSON.parse(album.extra_criteria) : album.extra_criteria)
+        : {}; } catch { return {}; }
+    })();
+    const criteria = albumCriteria.filter(c => c.id !== 'tracks' && c.weight > 0);
     const criteriaRows = criteria.map(c => {
-      const val = Math.round(album[`score_${c.id}`] || 0);
+      const raw = album[`score_${c.id}`] ?? extraScores[c.id] ?? 0;
+      const val = Math.round(raw);
       return `<div class="gallery-back-row">
         <span class="gallery-back-label">${c.label}</span>
         <div class="gallery-back-stars">${'★'.repeat(val)}${'☆'.repeat(5 - val)}</div>
