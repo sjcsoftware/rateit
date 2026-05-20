@@ -46,9 +46,13 @@ Search any album from Spotify API, rate it track-by-track and across five qualit
 
 ![cri](screenshots/custom_criteria.png)
 
-- **Year in Review** — Annual Wrapped-style stats: albums per month, avg score, top genre, most active month, highest and lowest rated album.
+- **Stats in Profile** - Your own taste statistics and Hall of fame (top 3 highest rated).
 
 ![prof](screenshots/profile.png)
+
+- **Year in Review** — Annual Wrapped-style stats: albums per month, avg score, top genre, most active month, highest and lowest rated album.
+
+![prof](screenshots/year_review.png)
 
 - **Surprise Me** — One-click random album picker in the main screen, weighted toward your top genres.
 
