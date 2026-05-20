@@ -64,7 +64,7 @@ Search any album from Spotify API, rate it track-by-track and across five qualit
 
 ## Requirements
 
-- **macOS** (Apple Silicon — arm64)
+- **MacOS**
 
 - A [Spotify Developer account](https://developer.spotify.com/dashboard) to search albums (no Spotify subscription required, free tier works)
 
@@ -76,7 +76,7 @@ Search any album from Spotify API, rate it track-by-track and across five qualit
 
 ### Download (recommended)
 
-Download the latest `RateIt-1.0.0-arm64.dmg` from the [**Releases**](../../releases) page, open it, and drag `RateIt` to your Applications folder.
+Download the latest RateIt DMG from the [**Releases**](../../releases) page (pick `arm64` for Apple Silicon Macs or `x86-64` for Intel Macs), open it, and drag `RateIt` to your Applications folder.
 
 ### Build from source
 
@@ -86,7 +86,7 @@ cd rateit
 npm install
 npm run rebuild   # recompiles SQLite for Electron's Node runtime
 npm start         # launch in dev mode
-npm run build     # produces dist/RateIt-1.0.0-arm64.dmg
+npm run build     # produces dist/RateIt-<version>-arm64.dmg and dist/RateIt-<version>-x86-64.dmg
 ```
 
 ---
