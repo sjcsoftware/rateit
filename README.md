@@ -93,7 +93,7 @@ npm run build     # produces dist/RateIt-<version>-arm64.dmg and dist/RateIt-<ve
 
 As a serverless local only app, RateIt does not ship updates to you.
 
-In order to update, you have to delete your current outdated version of the app, go to the [**Releases**](../../releases) page and re-download the newest version. I apologize for the inconvenience.
+In order to update, you have to delete your current outdated version of the app, go to the [**Releases**](../../releases) page and re-download the newest version. Your account and rated albums DB will not be lost, and the application will automatically login. I apologize for the inconvenience.
 
 ---
 
