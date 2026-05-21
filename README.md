@@ -89,6 +89,12 @@ npm start         # launch in dev mode
 npm run build     # produces dist/RateIt-<version>-arm64.dmg and dist/RateIt-<version>-x86-64.dmg
 ```
 
+### Updates
+
+As a serverless local only app, RateIt does not ship updates to you.
+
+In order to update, you have to delete your current outdated version of the app, go to the [**Releases**](../../releases) page and re-download the newest version. I apologize for the inconvenience.
+
 ---
 
 ## Setup: Spotify API credentials
@@ -135,12 +141,16 @@ Hit the **🎲 Surprise Me** button on the Search page for a random album recomm
 
 Open **Custom Criteria** from the left nav to adjust dimension weights via sliders. All weights must total 100%. You can also rename dimensions or add your own (e.g. swap "Lyricism" for "Technique" for instrumental albums).
 
+Already rated albums will retain their old criteria (and weights). If you want to re-rate them with the new criteria, simply click the "Refresh Criteria" button in the album page, inside your **Rated Albums** library. You'll be able to re-rate with the current criteria.
+
 ### Exporting your library
 
 In **Rated Albums**, click **Export** (top right) to save your library as:
 - **JSON** — full fidelity, machine-readable
 - **CSV** — opens in Numbers / Excel
-- **HTML** — a styled personal music page ready to share or archive
+- **HTML** — a styled personal music page ready to share or archive (below)
+
+![html](screenshots/export_html.png)
 
 ---
 
@@ -158,10 +168,12 @@ rateit/
 │   ├── server.js
 │   └── .env.example
 ├── assets/         # App icon
+├── screenshots/    # Screenshots for README.md
+├── scripts/        # Renaming script for x86-64  
 └── package.json
 ```
 
-Data is stored in `~/Library/Application Support/rateit/ratings.db` and persists across updates.
+Data is stored in `~/Library/Application Support/rateit/ratings.db` and persists across updates. 
 
 ---
 
@@ -171,7 +183,7 @@ Data is stored in `~/Library/Application Support/rateit/ratings.db` and persists
 |---|---|
 | Shell | Electron 28 |
 | Server | Express 5, better-sqlite3 |
-| Frontend | Vanilla JS / CSS (zero dependencies) |
+| Frontend | Vanilla JS / CSS |
 | Database | SQLite — fully local |
 | Music data | Spotify Web API (search & metadata only) |
 
