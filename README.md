@@ -1,5 +1,10 @@
 # RateIt - Your own local album rating app
 
+<div align="center">
+  <img src="https://img.shields.io/github/stars/sjcsoftware/rateit">
+<img src="https://img.shields.io/badge/license-MIT-bluee">
+</div>
+
 ![Thumbnail](screenshots/thumbnail.png)
 
 **Rate your music. Own your taste.**
