@@ -1,23 +1,36 @@
 <div align="center">
 
-# RateIt
+<img src="assets/logo.png" alt="RateIt logo" width="128">
 
-[![Release](https://img.shields.io/github/v/release/sjcsoftware/rateit)](https://github.com/sjcsoftware/rateit/releases/latest)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![macOS](https://img.shields.io/badge/macOS-Apple%20Silicon%20%7C%20Intel-000000?logo=apple&logoColor=white)](#install)
-[![Electron](https://img.shields.io/badge/Electron-28-47848F?logo=electron&logoColor=white)](#tech-stack)
-[![Stars](https://img.shields.io/github/stars/sjcsoftware/rateit)](https://github.com/sjcsoftware/rateit/stargazers)
+<h1>RateIt</h1>
 
-### Rate your music. Own your taste.
+<p><b>Rate your music. Own your taste.</b></p>
 
-A local-only macOS app for rating every album you listen to.<br>
-No cloud, no subscription. Your library lives on your Mac.
+<p>A local-only macOS app for rating every album you listen to.<br>
+No cloud. No subscription. Your library lives on your Mac.</p>
 
-[Install](#install) · [Setup](#setup) · [Features](#features) · [Screenshots](#screenshots) · [Contributing](CONTRIBUTING.md)
+<a href="https://github.com/sjcsoftware/rateit/releases/latest"><img src="https://img.shields.io/github/v/release/sjcsoftware/rateit?style=flat-square&color=7c3aed&label=release" alt="Release"></a>
+<a href="#install"><img src="https://img.shields.io/badge/macOS-Apple%20Silicon%20%7C%20Intel-111111?style=flat-square&logo=apple&logoColor=white" alt="macOS"></a>
+<a href="#tech-stack"><img src="https://img.shields.io/badge/Electron-28-47848F?style=flat-square&logo=electron&logoColor=white" alt="Electron"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-4f46e5?style=flat-square" alt="License: MIT"></a>
+
+<br><br>
+
+<a href="https://github.com/sjcsoftware/rateit/releases/latest"><b>Download</b></a>
+&nbsp;·&nbsp;
+<a href="#setup">Setup</a>
+&nbsp;·&nbsp;
+<a href="#features">Features</a>
+&nbsp;·&nbsp;
+<a href="#screenshots">Screenshots</a>
+&nbsp;·&nbsp;
+<a href="CONTRIBUTING.md">Contributing</a>
+
+<br><br>
+
+<img src="screenshots/Main.png" alt="RateIt main screen" width="900">
 
 </div>
-
-![RateIt](screenshots/thumbnail.png)
 
 ## Features
 
@@ -37,24 +50,20 @@ No cloud, no subscription. Your library lives on your Mac.
 
 <table>
   <tr>
-    <td width="50%"><img src="screenshots/Main.png" alt="Main screen"><p align="center"><b>Main</b></p></td>
     <td width="50%"><img src="screenshots/Search.png" alt="Search results"><p align="center"><b>Search</b></p></td>
+    <td width="50%"><img src="screenshots/Rating.png" alt="Rating an album"><p align="center"><b>Rating</b></p></td>
   </tr>
   <tr>
-    <td><img src="screenshots/Rating.png" alt="Rating an album"><p align="center"><b>Rating</b></p></td>
-    <td><img src="screenshots/Rated_Albums.png" alt="Rated albums library"><p align="center"><b>Rated Albums</b></p></td>
+    <td width="50%"><img src="screenshots/Rated_Albums.png" alt="Rated albums library"><p align="center"><b>Rated Albums</b></p></td>
+    <td width="50%"><img src="screenshots/Gallery.png" alt="Gallery grid"><p align="center"><b>Gallery</b></p></td>
   </tr>
   <tr>
-    <td><img src="screenshots/Gallery.png" alt="Gallery grid"><p align="center"><b>Gallery</b></p></td>
-    <td><img src="screenshots/Card.png" alt="Flipped gallery card"><p align="center"><b>Gallery card</b></p></td>
+    <td width="50%"><img src="screenshots/Card.png" alt="Flipped gallery card"><p align="center"><b>Gallery card</b></p></td>
+    <td width="50%"><img src="screenshots/custom_criteria.png" alt="Custom criteria editor"><p align="center"><b>Custom Criteria</b></p></td>
   </tr>
   <tr>
-    <td><img src="screenshots/custom_criteria.png" alt="Custom criteria editor"><p align="center"><b>Custom Criteria</b></p></td>
-    <td><img src="screenshots/profile.png" alt="Profile stats"><p align="center"><b>Profile</b></p></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/year_review.png" alt="Year in review"><p align="center"><b>Year in Review</b></p></td>
-    <td><img src="screenshots/export_html.png" alt="HTML export"><p align="center"><b>HTML export</b></p></td>
+    <td width="50%"><img src="screenshots/profile.png" alt="Profile stats"><p align="center"><b>Profile</b></p></td>
+    <td width="50%"><img src="screenshots/year_review.png" alt="Year in review"><p align="center"><b>Year in Review</b></p></td>
   </tr>
 </table>
 
@@ -110,6 +119,9 @@ RateIt needs your own Spotify API keys to search albums. A free Spotify account 
 | **Location** | `~/Library/Application Support/rateit/ratings.db` |
 | **Survives updates** | Yes |
 | **Backup** | Copy the file above, or use **Export** in Rated Albums |
+| **Export formats** | JSON, CSV, or a styled HTML page (below) |
+
+<p align="center"><img src="screenshots/export_html.png" alt="HTML export" width="640"></p>
 
 Re-rating with new criteria: albums keep the criteria they were rated with. Open one from **Rated Albums** and hit **↻ Refresh Criteria** to re-rate it with your current set.
 
