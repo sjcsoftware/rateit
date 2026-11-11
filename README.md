@@ -1,194 +1,117 @@
-# RateIt - Your own local album rating app
-
-<div align="center">
-  <img src="https://img.shields.io/github/stars/sjcsoftware/rateit">
-<img src="https://img.shields.io/badge/license-MIT-bluee">
-</div>
-
-![Thumbnail](screenshots/thumbnail.png)
-
 <div align="center">
 
-**Rate your music. Own your taste.**
+# RateIt
 
-</div>
+[![Release](https://img.shields.io/github/v/release/sjcsoftware/rateit)](https://github.com/sjcsoftware/rateit/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![macOS](https://img.shields.io/badge/macOS-Apple%20Silicon%20%7C%20Intel-000000?logo=apple&logoColor=white)](#install)
+[![Electron](https://img.shields.io/badge/Electron-28-47848F?logo=electron&logoColor=white)](#tech-stack)
+[![Stars](https://img.shields.io/github/stars/sjcsoftware/rateit)](https://github.com/sjcsoftware/rateit/stargazers)
 
-> RateIt is a MacOS desktop app for rating and cataloguing every album you listen to.
+### Rate your music. Own your taste.
 
-<div align="center">
+A local-only macOS app for rating every album you listen to.<br>
+No cloud, no subscription. Your library lives on your Mac.
 
-Search any album from Spotify API, rate it track-by-track and across five quality criteria (or your own!), and build a personal library that reflects your actual taste — no cloud, no subscription. Everything lives locally on your Mac.
+[Install](#install) · [Setup](#setup) · [Features](#features) · [Screenshots](#screenshots) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
-![Main](screenshots/Main.png)
-![Search](screenshots/Search.png)
-
----
-
-## Table of Contents
-
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Setup: Spotify API credentials](#setup-spotify-api-credentials)
-- [Usage](#usage)
-- [Project structure](#project-structure)
-- [Tech stack](#tech-stack)
-- [Contributing](#contributing)
-- [License](#license)
-
----
+![RateIt](screenshots/thumbnail.png)
 
 ## Features
 
-- **Search & Rate** — Find any album via the Spotify API and rate each track (1–5 ★) plus five quality criteria: Flow, Production, Lyricism, Originality, Replay. The overall score (out of 10) calculates automatically.
+| | |
+|---|---|
+| **Search & Rate** | Find any album on Spotify. Rate each track (1–5 ★) and five criteria. Overall score out of 10 is calculated for you. |
+| **Rated Albums** | Your library, sortable by score or date, groupable by artist or genre. |
+| **Gallery** | Album cards themed with each cover's dominant colour. Click to expand, click again to flip for the score breakdown. |
+| **Custom Criteria** | Rename, add, or reweight the scoring criteria (default: Flow, Production, Lyricism, Originality, Replay). Weights total 100%. |
+| **Profile** | Taste stats and a Hall of Fame of your top 3 albums. |
+| **Year in Review** | Albums per month, average score, top genre, most active month, best and worst album of the year. |
+| **Surprise Me** | Random album pick, weighted toward your top genres. |
+| **Export** | JSON, CSV, or a styled self-contained HTML page. |
+| **Open in Spotify** | Jump straight to any album in the Spotify app. |
 
-![rating](screenshots/Rating.png)
+## Screenshots
 
-- **Rated Albums** — Your full library with sort (score, date) and group (artist, genre) controls, a mini stats bar, and one-click export.
+<table>
+  <tr>
+    <td width="50%"><img src="screenshots/Main.png" alt="Main screen"><p align="center"><b>Main</b></p></td>
+    <td width="50%"><img src="screenshots/Search.png" alt="Search results"><p align="center"><b>Search</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/Rating.png" alt="Rating an album"><p align="center"><b>Rating</b></p></td>
+    <td><img src="screenshots/Rated_Albums.png" alt="Rated albums library"><p align="center"><b>Rated Albums</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/Gallery.png" alt="Gallery grid"><p align="center"><b>Gallery</b></p></td>
+    <td><img src="screenshots/Card.png" alt="Flipped gallery card"><p align="center"><b>Gallery card</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/custom_criteria.png" alt="Custom criteria editor"><p align="center"><b>Custom Criteria</b></p></td>
+    <td><img src="screenshots/profile.png" alt="Profile stats"><p align="center"><b>Profile</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/year_review.png" alt="Year in review"><p align="center"><b>Year in Review</b></p></td>
+    <td><img src="screenshots/export_html.png" alt="HTML export"><p align="center"><b>HTML export</b></p></td>
+  </tr>
+</table>
 
-![rated](screenshots/Rated_Albums.png)
+## Install
 
-- **Gallery** — A visual card grid of everything you've rated. Each card extracts the album's dominant colour and applies it as a theme. Click a card to expand it; click again to flip it and see the full score breakdown.
+| Mac | Download |
+|---|---|
+| Apple Silicon (M1 and later) | `RateIt-<version>-arm64.dmg` |
+| Intel | `RateIt-<version>-x86-64.dmg` |
 
-![Gallery](screenshots/Gallery.png)
-![Card](screenshots/Card.png)
+Get the DMG from [**Releases**](https://github.com/sjcsoftware/rateit/releases/latest), open it, and drag **RateIt** to Applications.
 
-- **Custom Criteria** — Rename or reweight the five scoring dimensions so the formula fits how you actually listen (jazz, classical, electronic — all different).
+> [!NOTE]
+> **Updating:** RateIt has no auto-update. Delete the old app and install the new DMG. Your account and ratings are kept, and you stay logged in.
 
-![cri](screenshots/custom_criteria.png)
+<details>
+<summary><b>Build from source</b></summary>
 
-- **Stats in Profile** - Your own taste statistics and Hall of fame (top 3 highest rated).
+<br>
 
-![prof](screenshots/profile.png)
+Requires Node.js 18+.
 
-- **Year in Review** — Annual Wrapped-style stats: albums per month, avg score, top genre, most active month, highest and lowest rated album.
-
-![prof](screenshots/year_review.png)
-
-- **Surprise Me** — One-click random album picker in the main screen, weighted toward your top genres.
-
-- **Export** — Download your library as JSON, CSV, or a self-contained styled HTML page.
-
-- **Open in Spotify** — Deep-link any album straight into the Spotify app.
-
----
-
-## Requirements
-
-- **MacOS**
-
-- A [Spotify Developer account](https://developer.spotify.com/dashboard) to search albums (no Spotify subscription required, free tier works)
-
-- Node.js 18+ and npm (only if building from source)
-
----
-
-## Installation
-
-### Download (recommended)
-
-Download the latest `RateIt` DMG from the [**Releases**](../../releases) page (pick `arm64` for Apple Silicon Macs or `x86-64` for Intel Macs), open it, and drag `RateIt` to your Applications folder.
-
-### Build from source
-
-```bash
-git clone https://github.com/sjcsoftware/rateit.git
-cd rateit
+```sh
+git clone https://github.com/sjcsoftware/rateit.git && cd rateit
 npm install
-npm run rebuild   # recompiles SQLite for Electron's Node runtime
-npm start         # launch in dev mode
-npm run build     # produces dist/RateIt-<version>-arm64.dmg and dist/RateIt-<version>-x86-64.dmg
+npm run rebuild   # compile SQLite for Electron
+npm start         # run in dev mode
+npm run build     # DMGs in dist/
 ```
 
-### Updates
+</details>
 
-As a serverless local only app, RateIt does not ship updates to you.
+## Setup
 
-In order to update, you have to delete your current outdated version of the app, go to the [**Releases**](../../releases) page and re-download the newest version. Your account and rated albums DB will not be lost, and the application will automatically login. I apologize for the inconvenience.
+RateIt needs your own Spotify API keys to search albums. A free Spotify account is enough.
 
----
+| Step | |
+|---|---|
+| **1** | Open the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) and sign in. |
+| **2** | **Create App**. Any name and description. Redirect URI: `https://localhost`. Check **Web API**. |
+| **3** | In the app's settings, copy the **Client ID** and **Client Secret**. |
+| **4** | Launch RateIt, create a local account, and paste both values. |
 
-## Setup: Spotify API credentials
+<p align="center"><img src="screenshots/Sign_up.png" alt="Sign up screen" width="640"></p>
 
-![signup](screenshots/Sign_up.png)
+> [!IMPORTANT]
+> **Everything stays on your Mac.** The sign-up account and your keys are stored in a local database and never sent anywhere. Spotify is only used to search albums and fetch track lists. Your ratings never leave your machine.
 
+## Your data
 
-The reason why RateIt has a sign up page is, each person need to add their own Spotify API credentials.
+| | |
+|---|---|
+| **Location** | `~/Library/Application Support/rateit/ratings.db` |
+| **Survives updates** | Yes |
+| **Backup** | Copy the file above, or use **Export** in Rated Albums |
 
-**RateIt does not connect your information to any type of server nor cloud in any way. Everything is managed locally (feel free to check the source code!)**
-
-RateIt uses the Spotify API only to search albums and fetch track lists. Also, your ratings and library data never touch Spotify's servers.
-
-1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and sign in with any Spotify account.
-2. Click **Create App**. Name and description can be anything.
-3. Set the Redirect URI to `https://localhost` (doesn't matter, put anything), check **Web API**, accept the Terms, and save.
-4. From your app's settings page, copy the **Client ID** and click **View client secret** to reveal the **Client Secret**.
-
-On first launch, RateIt will prompt you to create a local account and paste both values. They are stored in your local database — again, never transmitted.
-
----
-
-## Usage
-
-### Rating an album
-
-1. Type any album name or artist in the **Search & Rate** bar. Results appear from Spotify.
-2. Click an album — RateIt loads the full track list.
-3. Rate each track from 1–5 stars.
-4. Rate the five album qualities (Flow, Production, Lyricism, Originality, Replay) from 1–5 stars.
-5. Optionally write a one-line review.
-6. Hit **Save Rating**. Done.
-
-
-### Gallery
-
-The **Gallery** shows all your rated albums as cards with their album colour applied. Click any card to see it full-size. Click again to flip it — the back shows your complete score breakdown by dimension and top tracks.
-
-### Surprise Me
-
-Hit the **🎲 Surprise Me** button on the Search page for a random album recommendation drawn from your top genres. Great for when you can't decide what to listen to next.
-
-### Custom Criteria
-
-Open **Custom Criteria** from the left nav to adjust dimension weights via sliders. All weights must total 100%. You can also rename dimensions or add your own (e.g. swap "Lyricism" for "Technique" for instrumental albums).
-
-Already rated albums will retain their old criteria (and weights). If you want to re-rate them with the new criteria, simply click the "Refresh Criteria" button in the album page, inside your **Rated Albums** library. You'll be able to re-rate with the current criteria.
-
-### Exporting your library
-
-In **Rated Albums**, click **Export** (top right) to save your library as:
-- **JSON** — full fidelity, machine-readable
-- **CSV** — opens in Numbers / Excel
-- **HTML** — a styled personal music page ready to share or archive (below)
-
-![html](screenshots/export_html.png)
-
----
-
-## Project structure
-
-```
-rateit/
-├── electron/       # Electron main process
-│   └── main.js
-├── frontend/       # UI (vanilla JS, no frameworks)
-│   ├── index.html
-│   ├── app.js
-│   └── style.css
-├── backend/        # Express server + SQLite
-│   ├── server.js
-│   └── .env.example
-├── assets/         # App icon
-├── screenshots/    # Screenshots for README.md
-├── scripts/        # Renaming script for x86-64  
-└── package.json
-```
-
-Data is stored in `~/Library/Application Support/rateit/ratings.db` and persists across updates. 
-
----
+Re-rating with new criteria: albums keep the criteria they were rated with. Open one from **Rated Albums** and hit **↻ Refresh Criteria** to re-rate it with your current set.
 
 ## Tech stack
 
@@ -196,25 +119,13 @@ Data is stored in `~/Library/Application Support/rateit/ratings.db` and persists
 |---|---|
 | Shell | Electron 28 |
 | Server | Express 5, better-sqlite3 |
-| Frontend | Vanilla JS / CSS |
-| Database | SQLite — fully local |
-| Music data | Spotify Web API (search & metadata only) |
-
----
+| Frontend | Vanilla JS / CSS, no frameworks |
+| Database | SQLite, local only |
+| Music data | Spotify Web API (search and metadata) |
 
 ## Contributing
 
-PRs are welcome. For significant changes, open an issue first to discuss the direction.
-
-```bash
-git checkout -b feature/your-feature
-# make changes
-git commit -m "feat: describe your change"
-git push origin feature/your-feature
-# open a pull request
-```
-
----
+PRs are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, project layout, and the release process.
 
 ## License
 
