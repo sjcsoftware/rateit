@@ -14,7 +14,6 @@ No cloud. No subscription. Your library lives on your Mac.</p>
 <a href="#tech-stack"><img src="https://img.shields.io/badge/Electron-28-47848F?style=flat-square&logo=electron&logoColor=white" alt="Electron"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-4f46e5?style=flat-square" alt="License: MIT"></a>
 
-<br>
 
 <a href="https://github.com/sjcsoftware/rateit/releases/latest"><b>Download</b></a>
 &nbsp;·&nbsp;
